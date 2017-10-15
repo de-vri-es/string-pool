@@ -1,14 +1,17 @@
-cmake_minimum_required(VERSION 3.1)
+cmake_minimum_required(VERSION 3.8)
 project(stringpool)
 
 include(GNUInstallDirs)
 
-if (NOT TARGET mstd)
-	find_package(mstd REQUIRED)
+if (NOT DEFINED CMAKE_CXX_STANDARD)
+	set(CMAKE_CXX_STANDARD 17)
+	set(CMAKE_CXX_STANDARD_REQUIRED ON)
+	set(CMAKE_CXX_EXTENSIONS OFF)
 endif()
 
+add_compile_options(-Wall -Wextra -Wpedantic)
+
 add_library(string_pool INTERFACE)
-target_link_libraries(string_pool INTERFACE mstd)
 target_include_directories(string_pool        INTERFACE $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>)
 target_include_directories(string_pool SYSTEM INTERFACE $<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>)
 
